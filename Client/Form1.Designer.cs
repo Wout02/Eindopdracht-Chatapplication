@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace Client
 {
     partial class Form1
     {
