@@ -7,12 +7,12 @@ namespace Server
 {
     internal class Clientmanager
     {
-        #region connection stuff
+        
         private TcpClient tcpClient;
         private NetworkStream stream;
         private byte[] buffer = new byte[1024];
         private string totalBuffer = "";
-        #endregion
+       
 
         public string UserName { get; set; }
 
@@ -24,7 +24,7 @@ namespace Server
             this.stream = this.tcpClient.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
-        #region connection stuff
+       
         private void OnRead(IAsyncResult ar)
         {
             try
@@ -42,7 +42,7 @@ namespace Server
 
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
-        #endregion
+      
 
         public void Write(string data)
         {
