@@ -14,8 +14,9 @@ namespace Client
         private static string totalBuffer;
         private static string username;
         private static bool connected = false;
+        private static bool userConnected = false;
 
-        
+
         static void Main(string[] args)
         {
            
@@ -33,10 +34,11 @@ namespace Client
                 {
                     Console.WriteLine("Chat:");
                     string newChatMessage = Console.ReadLine();
+                    write($"{username}:\n{newChatMessage}");
                 }
                 else
                 {
-                    Console.WriteLine("Wait for connection");
+                    Console.WriteLine("Connecting...");
                 }
             }
         }
@@ -47,7 +49,9 @@ namespace Client
             Console.WriteLine("Connected!");
             connected = true;
             stream = client.GetStream();
-            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
+            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);          
+            write($"{username} is connected\r\n");
+            
             
         }
 
@@ -57,19 +61,13 @@ namespace Client
             string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
             totalBuffer += receivedText;
 
+           
         }
         private static void write(string data)
         {
             var dataAsBytes = System.Text.Encoding.ASCII.GetBytes(data);
             stream.Write(dataAsBytes, 0, dataAsBytes.Length);
             stream.Flush();
-        }
-
-        private static void handleData(string[] packetData)
-        {
-            
-            
-
         }
     }
 }
