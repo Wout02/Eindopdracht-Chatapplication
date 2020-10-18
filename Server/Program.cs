@@ -1,12 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Server
 {
-    class Program
+   static class Program
     {
+        private static TcpListener listener;
+        private static List<Clientmanager> clients = new List<Clientmanager>();
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Server");
+
+            listener = new TcpListener(IPAddress.Any, 15243);
+            listener.Start();
+            listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
+
+            Console.ReadLine();
+        }
+
+        private static void OnConnect(IAsyncResult ar)
+        {
+            var tcpClient = listener.EndAcceptTcpClient(ar);
+            Console.WriteLine($"Client connected from {tcpClient.Client.RemoteEndPoint}");
+            clients.Add(new Clientmanager(tcpClient));
+            listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
+        }
+
+        internal static void Disconnect(Clientmanager clientManager)
+        {
+            clients.Remove(clientManager);
+            Console.WriteLine("Client disconnected");
         }
     }
 }
