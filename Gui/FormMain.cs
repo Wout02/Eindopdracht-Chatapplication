@@ -29,7 +29,7 @@ namespace Gui
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            string user = TboxUsername.Text.ToLower();
+            string user = TboxUsername.Text;
             string pass = TboxPassword.Text;
 
             string query = $"INSERT INTO UserInfo (username, password) VALUES(@username, @password);";
@@ -39,9 +39,10 @@ namespace Gui
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@username", user);
+                    cmd.Parameters.AddWithValue("@username", user.ToLower());
                     cmd.Parameters.AddWithValue("@password", pass);
                     cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{user} Created!");
                 }
 
             }
@@ -60,7 +61,7 @@ namespace Gui
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@username", user);
+                    cmd.Parameters.AddWithValue("@username", user.ToLower());
                     cmd.Parameters.AddWithValue("@password", pass);
                     int result = (int)cmd.ExecuteScalar();
 
