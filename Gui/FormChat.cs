@@ -18,14 +18,19 @@ namespace Gui
         {
             this.user = user;
             this.users = users;
-            
-            InitializeComponent(users);
+            InitializeComponent();
+
+            OnlineUsers.DataSource = users;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string message = textBox2.Text;
-            textBox1.Text += $"{user}: " + message + "\n";
+            string temp = user + ": " + message + "\r\n";
+            if (message.Length > 0)
+            { 
+                textBox1.Text += temp;
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Gui
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(List<string> users)
+        private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -55,6 +55,9 @@ namespace Gui
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(450, 300);
             this.textBox1.TabIndex = 2;
+            this.textBox1.Text = "";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.BackColor = Color.White;
             // 
             // button1
             // 
@@ -81,7 +84,6 @@ namespace Gui
             this.OnlineUsers.Name = "OnlineUsers";
             this.OnlineUsers.Size = new System.Drawing.Size(170, 344);
             this.OnlineUsers.TabIndex = 5;
-            this.OnlineUsers.DataSource = users;
             // 
             // FormChat
             // 
