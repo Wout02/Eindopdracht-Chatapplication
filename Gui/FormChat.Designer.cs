@@ -31,11 +31,14 @@ namespace Gui
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChat));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.OnlineUsers = new System.Windows.Forms.ListBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -49,15 +52,16 @@ namespace Gui
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(284, 55);
             this.textBox1.MinimumSize = new System.Drawing.Size(300, 300);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(450, 300);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.BackColor = Color.White;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
             // 
@@ -71,10 +75,12 @@ namespace Gui
             // 
             // textBox2
             // 
+            this.textBox2.AllowDrop = true;
             this.textBox2.Location = new System.Drawing.Point(284, 386);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(325, 27);
             this.textBox2.TabIndex = 4;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckEnterKeyPress);
             // 
             // OnlineUsers
             // 
@@ -84,6 +90,13 @@ namespace Gui
             this.OnlineUsers.Name = "OnlineUsers";
             this.OnlineUsers.Size = new System.Drawing.Size(170, 344);
             this.OnlineUsers.TabIndex = 5;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipTitle = "New Chat Message";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Chat";
+            this.notifyIcon1.Visible = true;
             // 
             // FormChat
             // 
@@ -96,7 +109,7 @@ namespace Gui
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "FormChat";
-            this.Text = "FormChat";
+            this.Text = "Chat";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +121,6 @@ namespace Gui
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ListBox OnlineUsers;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
