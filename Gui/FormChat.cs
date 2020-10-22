@@ -20,6 +20,7 @@ namespace Gui
             this.user = user;
             this.users = users;
             InitializeComponent();
+            
 
             OnlineUsers.DataSource = users;
 

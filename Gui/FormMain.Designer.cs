@@ -41,7 +41,7 @@
             this.btnLogin.Location = new System.Drawing.Point(608, 355);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(94, 29);
-            this.btnLogin.TabIndex = 0;
+            this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -51,9 +51,9 @@
             this.lblUserName.AutoSize = true;
             this.lblUserName.Location = new System.Drawing.Point(141, 112);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(82, 20);
+            this.lblUserName.Size = new System.Drawing.Size(79, 20);
             this.lblUserName.TabIndex = 1;
-            this.lblUserName.Text = "User Name";
+            this.lblUserName.Text = "User name";
             // 
             // lblPassword
             // 
@@ -69,21 +69,23 @@
             this.TboxUsername.Location = new System.Drawing.Point(313, 112);
             this.TboxUsername.Name = "TboxUsername";
             this.TboxUsername.Size = new System.Drawing.Size(223, 27);
-            this.TboxUsername.TabIndex = 2;
+            this.TboxUsername.TabIndex = 1;
             // 
             // TboxPassword
             // 
             this.TboxPassword.Location = new System.Drawing.Point(313, 159);
             this.TboxPassword.Name = "TboxPassword";
+            this.TboxPassword.PasswordChar = '*';
             this.TboxPassword.Size = new System.Drawing.Size(223, 27);
             this.TboxPassword.TabIndex = 2;
+            this.TboxPassword.UseSystemPasswordChar = true;
             // 
             // btnRegister
             // 
             this.btnRegister.Location = new System.Drawing.Point(483, 355);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(94, 29);
-            this.btnRegister.TabIndex = 0;
+            this.btnRegister.TabIndex = 3;
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
