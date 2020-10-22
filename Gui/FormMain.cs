@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace Gui
 {
@@ -16,11 +17,11 @@ namespace Gui
     {
         private string connectionString;
         private SqlConnection connection;
+        private List<string> users = new List<string>();
 
         public FormMain()
         {
             InitializeComponent();
-
 
             connectionString = ConfigurationManager.ConnectionStrings["UserInfo.Properties.Settings.UserInfoConnectionString"].ConnectionString;
             //MessageBox.Show(connectionString);
@@ -50,11 +51,11 @@ namespace Gui
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string user = TboxUsername.Text.ToLower();
+            string user = TboxUsername.Text;
             string pass = TboxPassword.Text;
 
             string query = $"SELECT COUNT(*) FROM UserInfo WHERE username=@username AND password=@password";
-            Console.WriteLine(query);
+            
 
             using (connection = new SqlConnection(connectionString))
             {
@@ -68,6 +69,11 @@ namespace Gui
                     if (result > 0)
                     {
                         MessageBox.Show($"Welcome {user}");
+                        users.Add(user);
+                        FormChat chat = new FormChat(user, users);
+                        chat.Show();
+                        this.Hide();
+                        
                     }
 
                     if (result <= 0)
