@@ -12,15 +12,13 @@ namespace Server
         private NetworkStream stream;
         private byte[] buffer = new byte[1024];
         private string totalBuffer = "";
-        private DataBaseManager databaseManager;
 
         public string UserName { get; set; }
 
 
-        public Clientmanager(TcpClient tcpClient, DataBaseManager dbManager)
+        public Clientmanager(TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
-            this.databaseManager = dbManager;
 
             this.stream = this.tcpClient.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
@@ -32,8 +30,8 @@ namespace Server
             {
                 int receivedBytes = stream.EndRead(ar);
                 string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
-                totalBuffer += receivedText;            
-                
+                totalBuffer += receivedText;
+                Program.SendMessage(this, receivedText);
             }
             catch (IOException)
             {

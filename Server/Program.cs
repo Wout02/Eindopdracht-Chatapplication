@@ -11,14 +11,12 @@ namespace Server
     {
         private static TcpListener listener;
         private static List<Clientmanager> clients = new List<Clientmanager>();
-        private static DataBaseManager dataBaseManager = new DataBaseManager();
         private static string totalBuffer = "";
+
 
         static void Main(string[] args)
         {
             Console.WriteLine("Server");
-
-
 
             listener = new TcpListener(IPAddress.Any, 15243);
             listener.Start();
@@ -46,9 +44,7 @@ namespace Server
         {
             foreach(Clientmanager client in clients)
             {
-               
                 client.Write(data);
-                
             }
         }
 
@@ -58,6 +54,17 @@ namespace Server
             Console.WriteLine("Client disconnected");
             NotifyClients(clients, "Client disconnected");
             
+        }
+
+        public static void SendMessage(Clientmanager manager, string message)
+        {
+            foreach (Clientmanager client in clients)
+            {
+                if (manager != client)
+                {
+                    client.Write(message);
+                }
+            }
         }
 
     }
