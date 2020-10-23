@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Server
 {
-    internal class Clientmanager
+    public class Clientmanager
     {
         
         private TcpClient tcpClient;
@@ -26,14 +26,14 @@ namespace Server
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
        
-        private void OnRead(IAsyncResult ar)
+        public void OnRead(IAsyncResult ar)
         {
             try
             {
                 int receivedBytes = stream.EndRead(ar);
                 string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
-                totalBuffer += receivedText;
-                Console.WriteLine(totalBuffer);
+                totalBuffer += receivedText;            
+                
             }
             catch (IOException)
             {

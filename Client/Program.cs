@@ -34,7 +34,7 @@ namespace  Client
                 {
                     Console.WriteLine("Chat:");
                     string newChatMessage = Console.ReadLine();
-                    write($"{username}:\n{newChatMessage}");
+                    write($"{username}:{newChatMessage}");
                 }
                 else
                 {
