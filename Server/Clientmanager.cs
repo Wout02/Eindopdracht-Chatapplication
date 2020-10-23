@@ -30,6 +30,16 @@ namespace Server
             {
                 int receivedBytes = stream.EndRead(ar);
                 string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+                Console.WriteLine(receivedText);
+                if (receivedText.Contains("is connected"))
+                {
+                    Console.WriteLine(receivedText);
+                    Console.WriteLine(receivedText);
+                    Console.WriteLine(receivedText);
+                    Console.WriteLine(receivedText);
+                    string name = receivedText.Substring(0, receivedText.IndexOf(" is connected"));
+                    UserName = name;
+                }
                 totalBuffer += receivedText;
                 Program.SendMessage(this, receivedText);
             }
@@ -47,7 +57,7 @@ namespace Server
         {
             var dataAsBytes = System.Text.Encoding.ASCII.GetBytes(data);
             stream.Write(dataAsBytes, 0, dataAsBytes.Length);
-            stream.Flush();
+
         }
     }
 }

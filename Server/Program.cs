@@ -30,9 +30,18 @@ namespace Server
         {
             
             var tcpClient = listener.EndAcceptTcpClient(ar);
-                               
-            Console.WriteLine($"Client connected from {tcpClient.Client.RemoteEndPoint}");          
-            clients.Add(new Clientmanager(tcpClient));           
+                        
+            Console.WriteLine($"Client connected from {tcpClient.Client.RemoteEndPoint}");
+
+            Clientmanager man = new Clientmanager(tcpClient);
+
+
+            foreach (Clientmanager c in clients)
+            {
+                man.Write($"{c.UserName} is connected" );
+                Console.WriteLine($"{c.UserName} is connected");
+            }
+            clients.Add(man);
             NotifyClients(clients, $"Client connected from {tcpClient.Client.RemoteEndPoint}\r\n");
             
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);

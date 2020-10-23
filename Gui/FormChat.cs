@@ -30,25 +30,29 @@ namespace Gui
             InitializeComponent();
 
             this.client = client;
-            OnConnect();
             this.user = user;
             this.users = users;
 
- 
-
+            OnConnect();
         }
 
         private void OnConnect()
         {
-
+            
             textBox1.Text += "Connected!\r\n";
             connected = true;
             Console.WriteLine("ASDBASDBIASBDAS");
             stream = client.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
-            write($"{user} is connected\r\n");
-            Console.WriteLine("DONEEEEEEEEEEEEEEE");
 
+            foreach (string user in users)
+            {
+                write($"{user} is connected\r\n");
+                Console.WriteLine(user);
+            }
+
+            //write($"{user} is connected\r\n");
+            Console.WriteLine("DONEEEEEEEEEEEEEEE");
 
 
         }
@@ -57,15 +61,32 @@ namespace Gui
         {
             int receivedBytes = stream.EndRead(ar);
             string receivedText = Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+
+            if (receivedText.Contains(" is connected\r\n"))
+            {
+                string temp = receivedText.Substring(0, receivedText.IndexOf(" "));
+                if (temp != "")
+                {
+                    OnlineUsers.Items.Add(temp);
+                }
+            }
+
             totalBuffer += receivedText;
             textBox1.Text = totalBuffer;
 
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
+            
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
 
-        private static void write(string data)
+        private void write(string data)
         {
             totalBuffer += data;
+
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
+
             var dataAsBytes = Encoding.ASCII.GetBytes(data);
             stream.Write(dataAsBytes, 0, dataAsBytes.Length);
             stream.Flush();

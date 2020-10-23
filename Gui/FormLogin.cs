@@ -80,7 +80,7 @@ namespace Gui
             connected = true;
             stream = client.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
-            write($"{user} is connected\r\n");
+            //write($"{user} is connected\r\n");
             Console.WriteLine("ENDENDED");
 
         }
