@@ -10,10 +10,13 @@ namespace Server
     {
         private static TcpListener listener;
         private static List<Clientmanager> clients = new List<Clientmanager>();
+        private static DataBaseManager dataBaseManager = new DataBaseManager();
 
         static void Main(string[] args)
         {
             Console.WriteLine("Server");
+
+
 
             listener = new TcpListener(IPAddress.Any, 15243);
             listener.Start();
@@ -26,7 +29,7 @@ namespace Server
         {
             var tcpClient = listener.EndAcceptTcpClient(ar);
             Console.WriteLine($"Client connected from {tcpClient.Client.RemoteEndPoint}");
-            clients.Add(new Clientmanager(tcpClient));
+            clients.Add(new Clientmanager(tcpClient, dataBaseManager));
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
         }
 
@@ -35,5 +38,6 @@ namespace Server
             clients.Remove(clientManager);
             Console.WriteLine("Client disconnected");
         }
+
     }
 }

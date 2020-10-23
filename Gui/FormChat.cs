@@ -28,6 +28,8 @@ namespace Gui
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Minimized;
+            Thread.Sleep(1000);
             string message = textBox2.Text;
             string temp = user + ": " + message + "\r\n";
             if (message.Length > 0)

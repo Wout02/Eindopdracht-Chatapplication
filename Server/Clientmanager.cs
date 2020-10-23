@@ -12,14 +12,15 @@ namespace Server
         private NetworkStream stream;
         private byte[] buffer = new byte[1024];
         private string totalBuffer = "";
-       
+        private DataBaseManager databaseManager;
 
         public string UserName { get; set; }
 
 
-        public Clientmanager(TcpClient tcpClient)
+        public Clientmanager(TcpClient tcpClient, DataBaseManager dbManager)
         {
             this.tcpClient = tcpClient;
+            this.databaseManager = dbManager;
 
             this.stream = this.tcpClient.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
