@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using Server;
 
 namespace Gui
 {
@@ -33,12 +34,6 @@ namespace Gui
             this.users = users;
 
             InitializeComponent();
-
-            
-
-
-               
-              
 
 }
 
@@ -68,8 +63,8 @@ namespace Gui
 
             int receivedBytes = stream.EndRead(ar);
             string receivedText = Encoding.ASCII.GetString(buffer, 0, receivedBytes);
-            totalBuffer += receivedText;
-            textBox1.Text = totalBuffer;
+            
+            textBox1.Text += receivedText;
 
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
@@ -100,7 +95,7 @@ namespace Gui
                 string temp = user + ": " + message + "\r\n";
                 if (message.Length > 0)
                 {
-                    textBox1.Text += temp;
+                    textBox1.Text += temp;                  
                     write(temp);
                     textBox2.Text = "";
                 }

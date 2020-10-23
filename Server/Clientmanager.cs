@@ -11,7 +11,7 @@ namespace Server
         private TcpClient tcpClient;
         private NetworkStream stream;
         private byte[] buffer = new byte[1024];
-        public string totalBuffer = "";
+        public static string totalBuffer = "";
        
 
         public string UserName { get; set; }
@@ -28,18 +28,19 @@ namespace Server
        
         public void OnRead(IAsyncResult ar)
         {
-            try
-            {
+            //try
+            //{
                 int receivedBytes = stream.EndRead(ar);
                 string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
-                totalBuffer += receivedText;            
+                totalBuffer += receivedText;      
                 
-            }
-            catch (IOException)
-            {
-                Program.Disconnect(this);
-                return;
-            }
+               
+            //}
+            //catch (IOException)
+            //{
+            //    Program.Disconnect(this);
+            //    return;
+            //}
 
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }

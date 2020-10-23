@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using Gui;
+
 
 namespace Server
 {
@@ -11,7 +11,7 @@ namespace Server
     {
         private static TcpListener listener;
         private static List<Clientmanager> clients = new List<Clientmanager>();
-        private static string totalBuffer = "";
+       
         
         
 
@@ -23,20 +23,27 @@ namespace Server
             listener.Start();
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
 
+           
+                
             Console.ReadLine();
             
+
+
         }
 
-        private static void OnConnect(IAsyncResult ar)
+        internal static void OnConnect(IAsyncResult ar)
         {
             
             var tcpClient = listener.EndAcceptTcpClient(ar);
-                               
-            Console.WriteLine($"Client connected from {tcpClient.Client.RemoteEndPoint}");          
-            clients.Add(new Clientmanager(tcpClient));           
-            NotifyClients(clients, $"Client connected from {tcpClient.Client.RemoteEndPoint}\r\n");
             
+            clients.Add(new Clientmanager(tcpClient));
+            NotifyClients(clients, $"Client connected from {tcpClient.Client.RemoteEndPoint}\r\n");
+            NotifyClients(clients, Clientmanager.totalBuffer);
+
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
+            
+
+            
         }
 
        
@@ -45,8 +52,14 @@ namespace Server
         {
             foreach(Clientmanager client in clients)
             {
-               
-                client.Write(data);
+                if (data == null)
+                {
+                    return;
+                }
+                else
+                {
+                    client.Write(data);
+                }
                 
             }
         }
