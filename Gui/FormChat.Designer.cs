@@ -39,6 +39,7 @@ namespace Gui
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.OnlineUsers = new System.Windows.Forms.ListBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.buttonGetLogFromList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -89,7 +90,7 @@ namespace Gui
             this.OnlineUsers.ItemHeight = 20;
             this.OnlineUsers.Location = new System.Drawing.Point(27, 55);
             this.OnlineUsers.Name = "OnlineUsers";
-            this.OnlineUsers.Size = new System.Drawing.Size(170, 344);
+            this.OnlineUsers.Size = new System.Drawing.Size(170, 304);
             this.OnlineUsers.TabIndex = 5;
             this.OnlineUsers.TabStop = false;
             // 
@@ -100,11 +101,22 @@ namespace Gui
             this.notifyIcon1.Text = "Chat";
             this.notifyIcon1.Visible = true;
             // 
+            // buttonGetLogFromList
+            // 
+            this.buttonGetLogFromList.Location = new System.Drawing.Point(27, 383);
+            this.buttonGetLogFromList.Name = "buttonGetLogFromList";
+            this.buttonGetLogFromList.Size = new System.Drawing.Size(94, 29);
+            this.buttonGetLogFromList.TabIndex = 6;
+            this.buttonGetLogFromList.Text = "Get Log";
+            this.buttonGetLogFromList.UseVisualStyleBackColor = true;
+            this.buttonGetLogFromList.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 451);
+            this.Controls.Add(this.buttonGetLogFromList);
             this.Controls.Add(this.OnlineUsers);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
@@ -124,5 +136,6 @@ namespace Gui
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ListBox OnlineUsers;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Button buttonGetLogFromList;
     }
 }
