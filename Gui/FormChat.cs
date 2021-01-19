@@ -11,12 +11,13 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient.Memcached;
+using System.IO;
 
 namespace Gui
 {
     public partial class FormChat : Form
     {
-        private  string user;
+        private string user;
         private List<string> users;
         private TcpClient client;
         private static NetworkStream stream;
@@ -90,6 +91,18 @@ namespace Gui
             var dataAsBytes = Encoding.ASCII.GetBytes(data);
             stream.Write(dataAsBytes, 0, dataAsBytes.Length);
             stream.Flush();
+
+            writeToFile(data);
+
+
+        }
+
+        private void writeToFile(string data)
+        {
+            using (StreamWriter file = File.AppendText(Directory.GetCurrentDirectory() + "\\" + user + ".txt"))
+            {
+                file.WriteLine(data);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -136,6 +149,18 @@ namespace Gui
         public void AddOnlineUser(object sender, EventArgs e)
         {
             OnlineUsers.Items.Add(user);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("GETTING LOG");
+           
+            String filePath = Directory.GetCurrentDirectory() + "\\" + OnlineUsers.SelectedItem.ToString() + ".txt";
+            Console.WriteLine(filePath);
+            if (File.Exists(filePath))
+            {
+                System.Diagnostics.Process.Start("notepad.exe" ,filePath);
+            }
         }
     }
 }

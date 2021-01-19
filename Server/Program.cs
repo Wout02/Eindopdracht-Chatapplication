@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Gui;
 
 namespace Server
@@ -19,8 +20,9 @@ namespace Server
             Console.WriteLine("Server");
 
             listener = new TcpListener(IPAddress.Any, 15243);
-            listener.Start();
+            listener.Start(); 
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
+            
 
             Console.ReadLine();
             
@@ -42,7 +44,14 @@ namespace Server
                 Console.WriteLine($"{c.UserName} is connected");
             }
             clients.Add(man);
-            NotifyClients(clients, $"Client connected from {tcpClient.Client.RemoteEndPoint}\r\n");
+
+            Thread notifyClients = new Thread(() =>
+            {
+                NotifyClients(clients, $"Client connected from {tcpClient.Client.RemoteEndPoint}\r\n");
+            });
+
+            notifyClients.Start();
+            
             
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
         }
