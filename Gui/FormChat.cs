@@ -99,7 +99,7 @@ namespace Gui
 
         private void writeToFile(string data)
         {
-            using (StreamWriter file = File.AppendText("D:/School/GitHub-Repo/Eindopdracht-Chatapplication/Client/bin/Debug/netcoreapp3.1/" + user + ".txt"))
+            using (StreamWriter file = File.AppendText(Directory.GetCurrentDirectory() + "\\" + user + ".txt"))
             {
                 file.WriteLine(data);
             }
@@ -154,10 +154,12 @@ namespace Gui
         private void button2_Click(object sender, EventArgs e)
         {
             Console.WriteLine("GETTING LOG");
-            String filePath = "D:/School/GitHub-Repo/Eindopdracht-Chatapplication/Client/bin/Debug/netcoreapp3.1/" + OnlineUsers.SelectedItem.ToString() + ".txt";
+           
+            String filePath = Directory.GetCurrentDirectory() + "\\" + OnlineUsers.SelectedItem.ToString() + ".txt";
+            Console.WriteLine(filePath);
             if (File.Exists(filePath))
             {
-                System.Diagnostics.Process.Start(filePath);
+                System.Diagnostics.Process.Start("notepad.exe" ,filePath);
             }
         }
     }
