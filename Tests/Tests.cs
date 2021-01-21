@@ -15,7 +15,7 @@ namespace Tests
         public void TestgetUserInfoReg() 
         {
             DataBaseManager dataBaseManager = new DataBaseManager();
-            string userName = "Kees";
+            string userName = "Test";
             string passWord = "1234";
             bool isTrue= dataBaseManager.getUserInfoReg(userName, passWord);
             Assert.IsTrue(isTrue);
@@ -25,7 +25,7 @@ namespace Tests
         public void TestgetUserInfoLogIn()
         {
             DataBaseManager dataBaseManager = new DataBaseManager();
-            string userName = "Kees";
+            string userName = "Test";
             string passWord = "1234";
             bool isFalse = dataBaseManager.getUserInfoLogIn(userName, passWord);
             Assert.IsFalse(isFalse);
@@ -39,6 +39,7 @@ namespace Tests
         [TestMethod]
         public void TestWriteData()
         {
+
         }
     }
 }
