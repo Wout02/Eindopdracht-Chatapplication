@@ -39,7 +39,6 @@ namespace Tests
         [TestMethod]
         public void TestWriteData()
         {
-
         }
     }
 }
